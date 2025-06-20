@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章要約アプリ</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; color: #333; }
+        h1 { text-align: center; color: #4a4a4a; }
+        textarea { width: 98%; height: 200px; margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
+        button { display: block; width: 100%; padding: 12px 20px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 18px; }
+        button:hover { background-color: #0056b3; }
+        #result-area { margin-top: 30px; }
+        .result-box { margin-top: 20px; padding: 20px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; white-space: pre-wrap; /* 改行をそのまま表示 */ }
+        .result-box h2 { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <h1>文章要約アプリ</h1>
+    
+    <form action="/summarize" method="post">
+        <label for="text">ここに文章を入力してください：</label>
+        <textarea id="text" name="original_text" rows="10">{{ original_text or '' }}</textarea>
+        
+        <button type="submit">要約する</button>
+    </form>
+
+    {% if result %}
+    <div id="result-area">
+        <div class="result-box">
+            <h2>AIによる要約結果：</h2>
+            <p>{{ result }}</p>
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>
