@@ -56,5 +56,6 @@ def summarize():
         return render_template("index.html", result="エラーが発生しました。しばらくしてから再度お試しください。")
 
 # このファイルが直接実行された場合にサーバーを起動
+# Renderなどの本番環境では Gunicorn が使われるため、この部分は実行されない
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5001) # portは任意だが変更推奨
