@@ -3,6 +3,7 @@
 import os
 import google.generativeai as genai
 from flask import Flask, render_template, request
+from flask_basicauth import BasicAuth # ← これを追加
 from dotenv import load_dotenv
 
 # .envファイルから環境変数を読み込む
@@ -24,6 +25,12 @@ model = genai.GenerativeModel('gemini-2.0-flash')
 # Flaskアプリのインスタンスを作成
 app = Flask(__name__)
 
+# --- Basic認証の設定 ---
+app.config['BASIC_AUTH_USERNAME'] = 'your-username'  # ← 好きなユーザー名
+app.config['BASIC_AUTH_PASSWORD'] = 'your-super-secret-password' # ← 複雑なパスワード
+app.config['BASIC_AUTH_FORCE'] = True # ← 全ページに認証を強制
+basic_auth = BasicAuth(app) # ← アプリに認証を適用
+# -----------------------
 # ルートURL ("/") にアクセスがあったときの処理 (GETリクエスト)
 @app.route("/")
 def index():
